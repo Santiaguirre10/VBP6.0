@@ -10,7 +10,7 @@ public class PuppyManager : MonoBehaviour
     public GameObject[] puppytype;
     public float minx;
     [SerializeField]
-    Vector2 objball;
+    GameObject objball;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +32,7 @@ public class PuppyManager : MonoBehaviour
         int rdmp = Random.Range(0, 4);
         Instantiate(puppytype[rdmp], puppyspamer[rdm].transform.position, Quaternion.identity);
     }
-    public Vector3 ObjBall()
+    public GameObject ObjBall()
     {
         for (int i = 0; i < puppys.Count; i++)
         {
@@ -45,7 +45,7 @@ public class PuppyManager : MonoBehaviour
         {
             if (minx == puppys[j].transform.position.x)
             {
-                objball = new Vector3(puppys[j].transform.position.x, puppys[j].transform.position.y);
+                objball = puppys[j];
             }
         }
         return objball;

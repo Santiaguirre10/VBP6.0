@@ -77,15 +77,13 @@ public class PuppyController : MonoBehaviour
                 puppymanager.GetComponent<PuppyManager>().minx = 8.8f;
             } 
         }
-        if (collision.name == "Ball")
+        if (collision.CompareTag("Ball"))
         {
-            if (transform.position == puppymanager.GetComponent<PuppyManager>().ObjBall()) {
                 addpuppy = false;
                 puppymanager.GetComponent<PuppyManager>().puppys.Remove(gameObject);
                 puppymanager.GetComponent<PuppyManager>().xpuppys.Remove(transform.position.x);
                 puppymanager.GetComponent<PuppyManager>().minx = 8.8f;
                 state = State.Kicked;
-            }
         }        
     }
     private void OnTriggerExit2D(Collider2D collision)

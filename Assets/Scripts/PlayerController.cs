@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
-    public bool atacking;
     [SerializeField]
     FloatingJoystick joystick;
     [SerializeField]
@@ -16,7 +15,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        atacking = true;
+        
     }
 
     // Update is called once per frame
