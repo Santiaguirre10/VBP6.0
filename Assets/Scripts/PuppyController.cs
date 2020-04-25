@@ -32,7 +32,8 @@ public class PuppyController : MonoBehaviour
         switch (state)
         {
             case State.Zone:
-                if (life > 0) {
+                if (life > 0)
+                {
                     if (!addpuppy)
                     {
                         puppymanager.GetComponent<PuppyManager>().puppys.Add(gameObject);
@@ -63,8 +64,11 @@ public class PuppyController : MonoBehaviour
     {
         if (collision.name == "Player")
         {
-            life--;
-            state = State.Kicked;
+            if(collision.GetComponent<PlayerController>().grounded)
+            {
+                life--;
+                state = State.Kicked;
+            }
         }
         if (collision.CompareTag("Fence"))
         {
@@ -77,7 +81,7 @@ public class PuppyController : MonoBehaviour
                 puppymanager.GetComponent<PuppyManager>().minx = 8.8f;
             } 
         }
-        if (collision.CompareTag("Ball"))
+        if (collision.CompareTag("Ball2"))
         {
                 addpuppy = false;
                 puppymanager.GetComponent<PuppyManager>().puppys.Remove(gameObject);
@@ -86,22 +90,11 @@ public class PuppyController : MonoBehaviour
                 state = State.Kicked;
         }        
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        
-    }
     public void MovimientoParab(Vector2 a, Vector2 b)
     {
         pmax = new Vector2((b.x - a.x) / 2 + a.x, b.y + 1.5f);
         rateVelocity = 1f / Vector2.Distance(a, b) * speed;
-        if (Vector2.Distance(a, b) >= 3)
-        {
-            t += Time.deltaTime * (speedp / 2);
-        }
-        else
-        {
-            t += Time.deltaTime * speedp;
-        }
+        t += Time.deltaTime * rateVelocity;
         if (t < 1.0f)
         {
             transform.position = Parabola(t, a, pmax, b);

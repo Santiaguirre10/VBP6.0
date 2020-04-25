@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5490951903865641055}
   - component: {fileID: 5490951903865641054}
   - component: {fileID: 5490951903865641053}
+  - component: {fileID: 5398564073328867994}
   m_Layer: 0
   m_Name: Racoon
   m_TagString: Puppy
@@ -151,7 +152,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9edadc171fb774597f37ca85dc1d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.7
   speedp: 0.7
   state: 0
+  ballhit: 0
   puppymanager: {fileID: 0}
+--- !u!95 &5398564073328867994
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5490951903865641050}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -4,62 +4,39 @@ using UnityEngine;
 
 public class BallController3 : MonoBehaviour
 {
-    public float rateVelocity;
+    float count;
+    float angle;
+    Vector3 dir;
     public float speed;
-    public float speedp;
-    public float t;
-    [SerializeField]
-    GameObject start, end, ball1;
     Vector2 initpos;
     [SerializeField]
-    Vector2 pmax;
-
-
-    private void Start()
+    GameObject end, puppymanager, ball4;
+    [SerializeField]
+    Sprite[] ballshape;
+    SpriteRenderer sprite;
+    Vector3 rebound;
+    // Start is called before the first frame update
+    void Start()
     {
-        start = GameObject.Find("Start");
         end = GameObject.Find("End");
-        start.transform.position = transform.position;
-        end.transform.position = new Vector2(2.711f, 3.635f);
+        puppymanager = GameObject.Find("PuppyManager");
+        sprite = GetComponent<SpriteRenderer>();
+        rebound = new Vector2(8.424f, 3.458f);
     }
-    private void Update()
+
+    // Update is called once per frame
+    void Update()
     {
-        MovimientoParab(start.transform.position, end.transform.position);
-        if (transform.position == end.transform.position)
+        transform.position = Vector2.MoveTowards(transform.position, rebound, speed * Time.deltaTime);
+        dir = rebound - transform.position;
+        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        if (transform.position == rebound)
         {
-            Instantiate(ball1, transform.position, Quaternion.identity);
+            sprite.sprite = ballshape[0];
+            end.GetComponentInChildren<SpriteRenderer>().enabled = true;
+            Instantiate(ball4, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-    }
-    void MovimientoParab(Vector2 a, Vector2 b)
-    {
-        var x = ((b.x - a.x) / 2f) + a.x;
-        var y = b.y + 5f;
-        pmax = new Vector2(x, y);
-        rateVelocity = 1f / Vector2.Distance(a, b) * speedp;
-        //t += Time.deltaTime * rateVelocity;
-        if (Vector2.Distance(a, b) >= 3)
-        {
-            t += Time.deltaTime * (speedp / 2);
-        }
-        else
-        {
-            t += Time.deltaTime * speedp;
-        }
-        if (t < 1.0f)
-        {
-            transform.position = Parabola(t, a, pmax, b);
-        }
-        else
-        {
-            transform.position = b;
-            
-        }
-    }
-    private Vector2 Parabola(float t, Vector2 a, Vector2 b, Vector2 c)
-    {
-        var ab = Vector2.Lerp(a, b, t);
-        var bc = Vector2.Lerp(b, c, t);
-        return Vector2.Lerp(ab, bc, t);
     }
 }

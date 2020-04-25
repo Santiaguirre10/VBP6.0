@@ -134,13 +134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26abff9063b81ff44867b34a3dfe4851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  start: {fileID: 0}
+  speedp: 1.5
+  t: 0
+  r: 0
   end: {fileID: 0}
-  player: {fileID: 0}
-  puppymanager: {fileID: 0}
-  ball2: {fileID: 6580972260155861103, guid: b4744c0454d0ecc4c84a749642e49ea8, type: 3}
-  ballshape:
-  - {fileID: -3603556060819865620, guid: b2b367bca58928f4990626d133a23396, type: 3}
-  - {fileID: 7826395881470743827, guid: b2b367bca58928f4990626d133a23396, type: 3}
-  - {fileID: 5641732428763174162, guid: b2b367bca58928f4990626d133a23396, type: 3}
+  ball5: {fileID: 290874426028902249, guid: 8bd2c66baa2301e408ea38f9cdc129b5, type: 3}
+  ball6: {fileID: 1537701736205998761, guid: dc43fbc030fe54a44a28ca47e28d4226, type: 3}
+  pmax: {x: 0, y: 0}
+  hitball: 0
+  sprite: {fileID: 8351368514360695846}

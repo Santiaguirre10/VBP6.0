@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -3603556060819865620, guid: b2b367bca58928f4990626d133a23396,
+  m_Sprite: {fileID: 7826395881470743827, guid: b2b367bca58928f4990626d133a23396,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -134,11 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dada94aa5ca00ee4589e69b61b9604a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateVelocity: 0
-  speed: 0
-  speedp: 2
-  t: 0
-  start: {fileID: 0}
+  speed: 10
   end: {fileID: 0}
-  ball1: {fileID: 1361277798186323245, guid: 7b9fa1781d531774a88cef958a591f40, type: 3}
-  pmax: {x: 0, y: 0}
+  puppymanager: {fileID: 0}
+  ball4: {fileID: 5160818361356514733, guid: 2cf6a9d4ea783e742a85cfa185ca5b40, type: 3}
+  ballshape:
+  - {fileID: 5641732428763174162, guid: b2b367bca58928f4990626d133a23396, type: 3}

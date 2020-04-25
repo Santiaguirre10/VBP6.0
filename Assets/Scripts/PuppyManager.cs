@@ -24,7 +24,7 @@ public class PuppyManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        InvokeRepeating("PuppyCreator", 0, 5);
+        InvokeRepeating("PuppyCreator", 0, 10);
     }
     void PuppyCreator()
     {

@@ -4,58 +4,33 @@ using UnityEngine;
 
 public class BallController2 : MonoBehaviour
 {
-    public float rateVelocity;
     public float speed;
-    public float speedp;
-    public float t;
+    float count;
+    float angle;
+    Vector3 dir;
     [SerializeField]
-    GameObject start, end, ball3;
+    GameObject puppymanager, ball3;
     Vector2 initpos;
-    [SerializeField]
-    Vector2 pmax;
 
 
     private void Start()
     {
-        start = GameObject.Find("Start");
-        end = GameObject.Find("End");
-        start.transform.position = transform.position;
-        var x = Random.Range(0.752f, 4.198f);
-        var y = Random.Range(1.023f, 3.028f);
-        end.transform.position = new Vector2(x, y);
+        
+        puppymanager = GameObject.Find("PuppyManager");
     }
     private void Update()
     {
-        MovimientoParab(start.transform.position, end.transform.position);
+        transform.position = Vector2.MoveTowards(transform.position, puppymanager.GetComponent<PuppyManager>().ObjBall().transform.position, speed * Time.deltaTime);
+        dir = puppymanager.GetComponent<PuppyManager>().ObjBall().transform.position - transform.position;
+        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name == "Player")
+        if (collision.CompareTag("Puppy"))
         {
             Instantiate(ball3, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-    }
-    void MovimientoParab(Vector2 a, Vector2 b)
-    {
-        var x = ((b.x - a.x) / 2f) + a.x;
-        var y = b.y + 5f;
-        pmax = new Vector2(x, y);
-        rateVelocity = 1f / Vector2.Distance(a, b) * speedp;
-        t += Time.deltaTime * rateVelocity;
-        if (t < 1.0f)
-        {
-            transform.position = Parabola(t, a, pmax, b);
-        }
-        else
-        {
-            transform.position = b;
-        }
-    }
-    private Vector2 Parabola(float t, Vector2 a, Vector2 b, Vector2 c)
-    {
-        var ab = Vector2.Lerp(a, b, t);
-        var bc = Vector2.Lerp(b, c, t);
-        return Vector2.Lerp(ab, bc, t);
     }
 }

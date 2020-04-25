@@ -5,91 +5,92 @@ using UnityEngine;
 public class BallController1 : MonoBehaviour
 {
     public float rateVelocity;
-    public float speed;
     public float speedp;
     public float t;
-    float count;
-    float angle;
-    Vector3 dir;
-    public enum State { Set, Atack};
-    public State state;
+    public float r;
     [SerializeField]
-    GameObject start, end, player, puppymanager, ball4;
-    Vector2 initpos;
+    GameObject start, end, player, puppymanager, ball2, ball6;
     [SerializeField]
     Vector2 pmax;
+    public bool hitball;
+    Vector2 initpos;
+    public Color lerpedcolor;
     [SerializeField]
-    Sprite[] ballshape;
     SpriteRenderer sprite;
-
 
     private void Start()
     {
+        t = 0;
+        sprite.color = Color.white;
         start = GameObject.Find("Start");
         end = GameObject.Find("End");
         player = GameObject.Find("Player");
         puppymanager = GameObject.Find("PuppyManager");
-        state = State.Set;
-        initpos = transform.position;
         end.GetComponentInChildren<SpriteRenderer>().enabled = true;
+        initpos = transform.position;
         if (player.transform.position.x < 3.198f)
         {
             end.transform.position = new Vector3(1f + player.transform.position.x, player.transform.position.y);
         }
         else
         {
-            end.transform.position = new Vector2(4.198f, player.transform.position.y);
+            end.transform.position = new Vector2(3.198f, player.transform.position.y);
         }
-        sprite = GetComponent<SpriteRenderer>();
+        hitball = false;
     }
     private void Update()
     {
-        switch (state)
+        if (puppymanager.GetComponent<PuppyManager>().puppys.Count >= 1)
         {
-            case State.Set:
-                if (puppymanager.GetComponent<PuppyManager>().puppys.Count >= 1)
-                {
-                    MovimientoParab(initpos, end.transform.position);
-                }
-                break;
-            case State.Atack:
-                start.transform.position = transform.position;
-                end.transform.position = puppymanager.GetComponent<PuppyManager>().ObjBall().transform.position;
-                Movimiento(start.transform.position, end.transform.position);
-                dir = end.transform.position - transform.position;
-                angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                sprite.sprite = ballshape[1];
-                break;
+            MovimientoParab(initpos, end.transform.position);
         }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            hitball = true;
+        }
+        else
+        {
+            hitball = false;
+        }
+    }
+    public void AllButton()
+    {
+        hitball = true;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.name == "Player")
+        {
+            if (t < 1f)
+            {
+                if (collision.GetComponent<PlayerController>().inputJump)
+                {
+                    if (Input.GetKey(KeyCode.Space))
+                    {
+                        Instantiate(ball2, transform.position, Quaternion.identity);
+                        end.GetComponentInChildren<SpriteRenderer>().enabled = false;
+                        Destroy(gameObject);
+                    }
+                }
+            }
+        }   
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (state == State.Set)
+        if (collision.name == "Player")
         {
-            if (collision.name == "Player")
+            if (t == 1f)
             {
-                    state = State.Atack;
-                    end.GetComponentInChildren<SpriteRenderer>().enabled = false;
-            }
-        }
-        if (state == State.Atack)
-        {
-            if (collision.CompareTag("Puppy"))
-            {
+                Instantiate(ball6, transform.position, Quaternion.identity);
+                end.GetComponentInChildren<SpriteRenderer>().enabled = false;
                 Destroy(gameObject);
-                Instantiate(ball4, transform.position, Quaternion.identity);
             }
         }
-    }
-    void Movimiento(Vector2 a, Vector2 b)
-    {
-        transform.position = Vector2.MoveTowards(a, b, speed * Time.deltaTime);
     }
     void MovimientoParab(Vector2 a, Vector2 b)
     {
         var x = ((b.x - a.x) / 2f) + a.x;
-        var y = b.y + 5f;
+        var y = b.y + 10f;
         pmax = new Vector2(x, y);
         rateVelocity = 1f / Vector2.Distance(a, b) * speedp;
         t += Time.deltaTime * rateVelocity;
@@ -100,19 +101,27 @@ public class BallController1 : MonoBehaviour
         else
         {
             transform.position = b;
-            count += Time.deltaTime;
-            if (count >= 3)
+            t = 1;
+        }
+        if (t > 0.75f)
+        {
+            r += Time.deltaTime * rateVelocity * 4;
+            if (r < 1.0f)
             {
-                state = State.Set;
-                count = 0;
-                t = 0;
+                sprite.color = Color.Lerp(Color.white, Color.red, r);
+            }
+            else
+            {
+                sprite.color = Color.white;
+                r = 1;
             }
         }
     }
-    private Vector2 Parabola(float t, Vector2 a, Vector2 b, Vector2 c)
-    {
-        var ab = Vector2.Lerp(a, b, t);
-        var bc = Vector2.Lerp(b, c, t);
-        return Vector2.Lerp(ab, bc, t);
-    }
+        private Vector2 Parabola(float t, Vector2 a, Vector2 b, Vector2 c)
+        {
+            var ab = Vector2.Lerp(a, b, t);
+            var bc = Vector2.Lerp(b, c, t);
+            return Vector2.Lerp(ab, bc, t);
+        }
+    
 }

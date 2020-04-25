@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4590670092557178223}
   m_Layer: 0
   m_Name: Ball (2)
-  m_TagString: Untagged
+  m_TagString: Ball2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -3603556060819865620, guid: b2b367bca58928f4990626d133a23396,
+  m_Sprite: {fileID: 7826395881470743827, guid: b2b367bca58928f4990626d133a23396,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -134,11 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ee68e99640ca774d86bfc35171ac0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateVelocity: 0
-  speed: 0
-  speedp: 2
-  t: 0
-  start: {fileID: 0}
-  end: {fileID: 0}
+  speed: 10
+  puppymanager: {fileID: 0}
   ball3: {fileID: 2770242515370461977, guid: 42822b54401fc804ba710a54b578753d, type: 3}
-  pmax: {x: 0, y: 0}
